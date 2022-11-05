@@ -61,6 +61,10 @@ The CI does create the `out` folder itself but we recommend creating it yourself
 The out folder is not sent to the final plugin, but is then put into a ``bin`` folder which is found at the root of the plugin's directory.  
 More information on the bin folder can be found below in the distribution section below.
 
+### Cross Compilation
+
+The backend build script (`build.sh`) builds with [Cross](https://github.com/cross-rs/cross) for the `x86_64-unknown-linux-gnu` target. You'll need to install cross and also install it's [dependencies](https://github.com/cross-rs/cross#dependencies).
+
 ### Distribution
 
 We recommend following the instructions found in the [decky-plugin-database](https://github.com/SteamDeckHomebrew/decky-plugin-database) on how to get your plugin up on the plugin store. This is the best way to get your plugin in front of users.
