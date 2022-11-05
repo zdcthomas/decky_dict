@@ -13,8 +13,13 @@ cp ../plugin.json "$1"
 cp ../LICENSE "$1"
 cp ../README.md "$1"
 
-zip "$1-$2.zip" "$1"/dist/index.js
-zip "$1-$2.zip" "$1/"*.py
-zip "$1-$2.zip" "$1/"*.json
-zip "$1-$2.zip" "$1"/LICENSE
-zip "$1-$2.zip" "$1"/README.md
+ZIP_NAME="$1-$2.zip"
+
+zip $ZIP_NAME "$1"/dist/index.js
+zip $ZIP_NAME "$1/"*.py
+zip $ZIP_NAME "$1/"*.json
+zip $ZIP_NAME "$1"/LICENSE
+zip $ZIP_NAME "$1"/README.md
+
+gh release create $2 $ZIP_NAME
+# https://github.com/zdcthomas/decky_dict/archive/refs/tags/0.0.1.zip
