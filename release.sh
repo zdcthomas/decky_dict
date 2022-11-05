@@ -28,5 +28,5 @@ zip $ZIP_NAME "$PACKAGE_NAME"/README.md
 # https://github.com/zdcthomas/decky_dict/archive/refs/tags/0.0.1.zip
 # https://github.com/zdcthomas/decky_dict/releases/download/v0.0.1/Dict-v0.0.1.zip
 
-scp -r $PACKAGE_NAME deck@"$STEAMDECK_IP":homebrew/plugins
+scp -r $PACKAGE_NAME deck@"$STEAMDECK_IP":homebrew
 ssh -t deck@"$STEAMDECK_IP" "sudo rm -rf ~/homebrew/plugins/$PACKAGE_NAME; sudo mv ~/homebrew/$PACKAGE_NAME ~/homebrew/plugins/"
