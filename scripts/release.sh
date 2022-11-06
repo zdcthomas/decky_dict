@@ -10,26 +10,48 @@ fi
 PACKAGE_NAME="Dict"
 STEAMDECK_IP=$(< STEAM_DECK_IP)
 
+
+echo "-------------------------"
+echo "|    Building Plugin    |"
+echo "-------------------------"
+
+
 pnpm build
+
+
+echo "--------------------------"
+echo "|    Packaging Plugin    |"
+echo "--------------------------"
+
 
 rm -rf build
 mkdir -p build/"$PACKAGE_NAME"/dist
 cd build || exit
 
 cp ../dist/index.js "$PACKAGE_NAME"/dist/index.js
-cp ../*.py "$PACKAGE_NAME"
 cp ../package.json "$PACKAGE_NAME"
 cp ../plugin.json "$PACKAGE_NAME"
+cp -r ../bin/ "$PACKAGE_NAME"/bin
 cp ../LICENSE "$PACKAGE_NAME"
 cp ../README.md "$PACKAGE_NAME"
+
+
+echo "--------------------------"
+echo "|    Zipping up build    |"
+echo "--------------------------"
 
 ZIP_NAME="$PACKAGE_NAME-$1.zip"
 
 zip $ZIP_NAME "$PACKAGE_NAME"/dist/index.js
-zip $ZIP_NAME "$PACKAGE_NAME/"*.py
+zip $ZIP_NAME "$PACKAGE_NAME"/bin/backend
 zip $ZIP_NAME "$PACKAGE_NAME/"*.json
 zip $ZIP_NAME "$PACKAGE_NAME"/LICENSE
 zip $ZIP_NAME "$PACKAGE_NAME"/README.md
+
+echo "---------------------------------------"
+echo "|    Deploying to local steam deck    |"
+echo "---------------------------------------"
+
 
 # gh release create $1 $ZIP_NAME
 # https://github.com/zdcthomas/decky_dict/archive/refs/tags/0.0.1.zip
@@ -37,3 +59,8 @@ zip $ZIP_NAME "$PACKAGE_NAME"/README.md
 
 scp -r $PACKAGE_NAME deck@"$STEAMDECK_IP":homebrew
 ssh -t deck@"$STEAMDECK_IP" "sudo rm -rf ~/homebrew/plugins/$PACKAGE_NAME; sudo mv ~/homebrew/$PACKAGE_NAME ~/homebrew/plugins/"
+
+echo "-------------------------------------------------"
+echo "|    Reload Deck Dict to use updated plugin!    |"
+echo "-------------------------------------------------"
+
