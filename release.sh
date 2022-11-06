@@ -1,7 +1,14 @@
 #!/usr/bin/env bash
 
+FILE=STEAM_DECK_IP
+if [ ! -f "$FILE" ]; then
+    echo "STEAM_DECK_IP file in root of repository does not exist."
+    echo "Please create this file with the Steam Deck IP address."
+    exit 1
+fi
+
 PACKAGE_NAME="Dict"
-STEAMDECK_IP="192.168.1.11"
+STEAMDECK_IP=$(< STEAM_DECK_IP)
 
 pnpm build
 

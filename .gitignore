@@ -48,3 +48,6 @@ yalc.lock
 /backend-rs/target
 backend
 /bin/backend
+
+# ignore user environment config
+STEAM_DECK_IP
