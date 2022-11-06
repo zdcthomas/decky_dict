@@ -41,6 +41,7 @@
   },
   "dependencies": {
     "decky-frontend-lib": "^3.6.1",
+    "usdpl-front": "file:./src/usdpl",
     "react-icons": "^4.4.0"
   },
   "pnpm": {

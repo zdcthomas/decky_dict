@@ -29,6 +29,7 @@ mkdir -p build/"$PACKAGE_NAME"/dist
 cd build || exit
 
 cp ../dist/index.js "$PACKAGE_NAME"/dist/index.js
+cp ../*.py "$PACKAGE_NAME"
 cp ../package.json "$PACKAGE_NAME"
 cp ../plugin.json "$PACKAGE_NAME"
 cp -r ../bin/ "$PACKAGE_NAME"/bin
@@ -45,6 +46,7 @@ ZIP_NAME="$PACKAGE_NAME-$1.zip"
 zip $ZIP_NAME "$PACKAGE_NAME"/dist/index.js
 zip $ZIP_NAME "$PACKAGE_NAME"/bin/backend
 zip $ZIP_NAME "$PACKAGE_NAME/"*.json
+zip $ZIP_NAME "$PACKAGE_NAME/"*.py
 zip $ZIP_NAME "$PACKAGE_NAME"/LICENSE
 zip $ZIP_NAME "$PACKAGE_NAME"/README.md
 
