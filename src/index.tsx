@@ -11,17 +11,19 @@ import {
   showContextMenu,
   staticClasses,
 } from "decky-frontend-lib";
-import { VFC } from "react";
+import { useState, VFC } from "react";
 import { FaShip } from "react-icons/fa";
 
-import logo from "../assets/logo.png";
+import * as backend from "./backend";
+
+var usdplReady: boolean = false;
 
 // interface AddMethodArgs {
 //   left: number;
 //   right: number;
 // }
 
-const Content: VFC<{ serverAPI: ServerAPI }> = ({}) => {
+const Content: VFC<{ serverAPI: ServerAPI }> = ({ serverAPI }) => {
   // const [result, setResult] = useState<number | undefined>();
 
   // const onClick = async () => {
@@ -37,6 +39,25 @@ const Content: VFC<{ serverAPI: ServerAPI }> = ({}) => {
   //   }
   // };
 
+  const [name, setName] = useState("Server says yolo");
+  const [firstTime, setFirstTime] = useState<boolean>(true);
+  const [_serverApiGlobal, setServerApi] = useState<ServerAPI>(serverAPI);
+  backend.resolve(backend.name(), setName);
+
+  if (firstTime) {
+    setFirstTime(false);
+    setServerApi(serverAPI);
+    // backend.resolve(backend.getEnabled(), setEnable);
+    // backend.resolve(backend.getInterpolate(), setInterpol);
+    // backend.resolve(backend.getCurve(), setCurve);
+    // backend.resolve(backend.getTemperature(), setTemperature);
+    // backend.resolve(backend.getFanRpm(), setFanRpm);
+  }
+
+  if (!usdplReady) {
+    return <PanelSection></PanelSection>;
+  }
+
   return (
     <PanelSection title="Panel Section">
       <PanelSectionRow>
@@ -45,7 +66,7 @@ const Content: VFC<{ serverAPI: ServerAPI }> = ({}) => {
           onClick={(e) =>
             showContextMenu(
               <Menu label="Menu" cancelText="CAAAANCEL" onCancel={() => {}}>
-                <MenuItem onSelected={() => {}}>Item #1</MenuItem>
+                <MenuItem onSelected={() => {}}>{name}</MenuItem>
                 <MenuItem onSelected={() => {}}>Item #2</MenuItem>
                 <MenuItem onSelected={() => {}}>Item #3</MenuItem>
               </Menu>,
@@ -53,14 +74,8 @@ const Content: VFC<{ serverAPI: ServerAPI }> = ({}) => {
             )
           }
         >
-          Server says yolo
+          {name}
         </ButtonItem>
-      </PanelSectionRow>
-
-      <PanelSectionRow>
-        <div style={{ display: "flex", justifyContent: "center" }}>
-          <img src={logo} />
-        </div>
       </PanelSectionRow>
 
       <PanelSectionRow>
@@ -94,8 +109,23 @@ export default definePlugin((serverApi: ServerAPI) => {
     exact: true,
   });
 
+  (async function () {
+    await backend.initBackend();
+    usdplReady = true;
+    //backend.getEnabled().then((enabled: boolean) => {
+    //  //@ts-ignore
+    //  SteamClient.System.SetBetaFanControl(!enabled);
+    //});
+  })();
+
+  // let ico = <FaFan />;
+  // let now = new Date();
+  // if (now.getDate() == 1 && now.getMonth() == 3) {
+  //   ico = <SiOnlyfans />;
+  // }
+
   return {
-    title: <div className={staticClasses.Title}>Example Plugin</div>,
+    title: <div className={staticClasses.Title}>Decky Dict</div>,
     content: <Content serverAPI={serverApi} />,
     icon: <FaShip />,
     onDismount() {

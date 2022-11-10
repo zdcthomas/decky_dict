@@ -1,10 +1,10 @@
 {
-  "name": "decky-plugin-template",
+  "name": "decky-dict",
   "version": "0.0.1",
   "description": "A template to quickly create decky plugins from scratch, based on TypeScript and webpack",
   "scripts": {
-    "release": "bash ./release.sh",
-    "build": "shx rm -rf dist && rollup -c",
+    "release": "bash ./scripts/release.sh",
+    "build": "bash ./scripts/build.sh",
     "watch": "rollup -c -w",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -41,6 +41,7 @@
   },
   "dependencies": {
     "decky-frontend-lib": "^3.6.1",
+    "usdpl-front": "file:./src/usdpl",
     "react-icons": "^4.4.0"
   },
   "pnpm": {
