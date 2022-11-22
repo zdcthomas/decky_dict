@@ -1,3 +1,4 @@
+use super::x;
 use usdpl_back::core::serdes::Primitive;
 
 pub const VERSION: &'static str = env!("CARGO_PKG_VERSION");
@@ -20,5 +21,10 @@ pub fn version(_: Vec<Primitive>) -> Vec<Primitive> {
 }
 
 pub fn name(_: Vec<Primitive>) -> Vec<Primitive> {
-    vec![NAME.into()]
+    vec![format!(
+        "Name: {}, X11 Setup: {}",
+        NAME,
+        x::connect_and_read_setup().unwrap_or(String::from("ERROR GETTING SETUP"))
+    )
+    .into()]
 }

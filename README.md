@@ -13,6 +13,8 @@ If you want to get in contact with the developers, we can be found in the
 This template relies on the user having `pnpm` installed on their system.  
 This can be downloaded from `npm` itself which is recommended. 
 
+We also depend on [xcb](https://xcb.freedesktop.org/), and the headers are required on the system to link against. We use xcb for key listening events, and simple box drawing for OCR capture coordinates.
+
 #### Linux
 
 ```bash

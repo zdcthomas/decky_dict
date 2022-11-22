@@ -1,6 +1,7 @@
 mod api;
+mod x;
 
-use simplelog::{LevelFilter, WriteLogger};
+use simplelog::{Config, LevelFilter, WriteLogger};
 use usdpl_back::Instance;
 
 const PORT: u16 = 44444;
@@ -15,7 +16,7 @@ fn main() -> Result<(), ()> {
         {
             LevelFilter::Info
         },
-        Default::default(),
+        Config::default(),
         std::fs::File::create("/tmp/decky_dict.log").unwrap(),
     )
     .unwrap();

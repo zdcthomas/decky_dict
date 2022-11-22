@@ -1,6 +1,8 @@
 [build]
 #xargo = true
-default-target = "x86_64-unknown-linux-gnu"
+
+[target.x86_64-unknown-linux-gnu]
+#if this gets too crazy, we can just use a customer dockerfile https://github.com/cross-rs/cross#custom-docker-images
+pre-build = ["apt-get update && apt-get install --assume-yes libxcb1-dev"]
 
 [build.env]
-#volumes = ["/home/ngnius/Documents/git-repos",]
